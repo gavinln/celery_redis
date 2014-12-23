@@ -13,6 +13,9 @@ $script = <<SCRIPT
 #    (puppet module list | grep acme-ohmyzsh) ||
 #        puppet module install -v 0.1.2 acme-ohmyzsh
 
+    (puppet module list | grep puppetlabs-mongodb) ||
+        puppet module install -v 0.9.0 puppetlabs-mongodb
+
 SCRIPT
 
 
@@ -35,6 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 6379, host: 6379  # celery
   config.vm.network :forwarded_port, guest: 5555, host: 5555  # flower
+  config.vm.network :forwarded_port, guest: 28017, host: 28017  # mongodb
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
