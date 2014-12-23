@@ -35,8 +35,6 @@ class init {
     $misc_packages = ['make', 'curl', 'tmux']
     package { $misc_packages:
         ensure => present,
-        require => [
-            Exec['update_pkg'],
-        ];
+        require => Exec['update_pkg']
     }
 }
