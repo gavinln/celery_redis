@@ -1,7 +1,7 @@
 from tasks import count_words_at_url
-#from tasks import add
+from tasks import add
 
-#add.delay(4, 4)
+#print add.delay(4, 4).get()
 
 word_counts = [
     count_words_at_url.delay('http://wsj.com'),
