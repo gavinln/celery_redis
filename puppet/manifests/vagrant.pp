@@ -16,6 +16,10 @@ class dev {
         #ohmyzsh: require => Class[init];
         celery: require => Class[init];
     }
+    class {'::mongodb::server':
+        require => Class[init],
+        bind_ip => '0.0.0.0';
+    }
 }
 
 include dev
