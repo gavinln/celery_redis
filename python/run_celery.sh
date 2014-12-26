@@ -1,3 +1,3 @@
 #!/bin/bash
 
-celery -A tasks -c 2 worker --loglevel=info
+celery -A tasks -c 20 worker --loglevel=info
