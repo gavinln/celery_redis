@@ -1,3 +1,3 @@
 #!/bin/bash
 
-celery -A comp_match_task -c 35 worker --loglevel=info
+celery -A tasks -c 5 worker --loglevel=info
