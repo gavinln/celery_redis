@@ -10,6 +10,7 @@ $script = <<SCRIPT
     set -e
 
     # install puppet modules
+
 #    (puppet module list | grep acme-ohmyzsh) ||
 #        puppet module install -v 0.1.2 acme-ohmyzsh
 
@@ -24,46 +25,52 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "trusty64"
-
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  config.vm.box_url = "https://vagrantcloud.com/ubuntu/trusty64/version/1/provider/virtualbox.box"
-  # Boot with a GUI so you can see the screen. (Default is headless)
-  # config.vm.boot_mode = :gui
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network :forwarded_port, guest: 6379, host: 6379  # celery
-  config.vm.network :forwarded_port, guest: 5555, host: 5555  # flower
-  config.vm.network :forwarded_port, guest: 28017, host: 28017  # mongodb
-
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  config.vm.network :private_network, ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network :public_network
-
-  # If true, then any SSH connections made will enable agent forwarding.
-  # Default value: false
-  # config.ssh.forward_agent = true
-
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
   config.vm.provider :virtualbox do |vb|
+
+    # Every Vagrant virtual environment requires a box to build off of.
+    config.vm.box = "trusty64"
+
+    # The url from where the 'config.vm.box' box will be fetched if it
+    # doesn't already exist on the user's system.
+    config.vm.box_url = "https://vagrantcloud.com/ubuntu/trusty64/version/1/provider/virtualbox.box"
+
+    # user insecure key
+    config.ssh.insert_key = false
+
+    # Boot with a GUI so you can see the screen. (Default is headless)
+    # config.vm.boot_mode = :gui
+
+    # Create a forwarded port mapping which allows access to a specific port
+    # within the machine from a port on the host machine. In the example below,
+    # accessing "localhost:8080" will access port 80 on the guest machine.
+    config.vm.network :forwarded_port, guest: 6379, host: 6379  # celery
+    config.vm.network :forwarded_port, guest: 5555, host: 5555  # flower
+    config.vm.network :forwarded_port, guest: 28017, host: 28017  # mongodb
+
+    # Create a private network, which allows host-only access to the machine
+    # using a specific IP.
+    config.vm.network :private_network, ip: "192.168.33.10"
+
+    # Create a public network, which generally matched to bridged network.
+    # Bridged networks make the machine appear as another physical device on
+    # your network.
+    # config.vm.network :public_network
+
+    # If true, then any SSH connections made will enable agent forwarding.
+    # Default value: false
+    # config.ssh.forward_agent = true
+
+    # Share an additional folder to the guest VM. The first argument is
+    # the path on the host to the actual folder. The second argument is
+    # the path on the guest to mount the folder. And the optional third
+    # argument is a set of non-required options.
+    # config.vm.synced_folder "../data", "/vagrant_data"
+
     # Don't boot with headless mode
     # vb.gui = true
 
