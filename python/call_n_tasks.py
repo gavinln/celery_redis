@@ -1,3 +1,8 @@
+import time
+
+from task_status import getTaskCount
+from task_status import getTotalTaskCount
+
 from tasks import count_words_at_url
 
 sites = [
@@ -49,24 +54,38 @@ sites = [
     't.co'
 ]
 
-word_counts = []
-
 TASK_ID_COUNT = 5  # number tasks from 0 to 4
 
-for idx, site in enumerate(sites):
-    word_counts.append(count_words_at_url.delay('http://' + site, idx % 5))
+
+def main():
+    word_counts = []
+
+    for idx, site in enumerate(sites):
+        word_counts.append(
+            count_words_at_url.delay('http://' + site, idx % TASK_ID_COUNT))
+
+    print 'submitted {} tasks'.format(len(sites))
+
+    def isComplete():
+        return not any(word_counts)
+
+    while True:
+        taskCount = getTaskCount()
+        print taskCount
+        if getTotalTaskCount(taskCount) == 0:
+            break
+
+    return
+
+    while True:
+        for idx, word_count in enumerate(word_counts):
+            if word_count and word_count.ready():
+                print(sites[idx], word_count.get())
+                word_counts[idx] = None
+        if isComplete():
+            break
+        time.sleep(1)
 
 
-def isComplete():
-    return not any(word_counts)
-
-while True:
-    for idx, word_count in enumerate(word_counts):
-        if word_count and word_count.ready():
-            print(sites[idx], word_count.get())
-            word_counts[idx] = None
-    if isComplete():
-        break
-    import time
-    time.sleep(1)
-
+if __name__ == "__main__":
+    main()
