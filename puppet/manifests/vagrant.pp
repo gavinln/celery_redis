@@ -14,6 +14,7 @@ class dev {
     class {
         init:;
         #ohmyzsh: require => Class[init];
+        python: require => Class[init];
         celery: require => Class[init];
     }
     class {'::mongodb::server':

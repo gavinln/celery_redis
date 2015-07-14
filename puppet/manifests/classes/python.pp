@@ -5,11 +5,11 @@ class python {
             package { "python-pip":
                 ensure => installed;
             }
-            #package { ['flask']:
-                #ensure => installed,
-                #provider => pip,
-                #require => Package['python-pip']
-            #}
+            package { ['click']:
+               ensure => installed,
+               provider => pip,
+               require => Package['python-pip']
+            }
         }
         RedHat, CentOS: {
             file { '/usr/bin/pip-python':

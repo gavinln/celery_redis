@@ -2,9 +2,6 @@
 class celery {
     case $operatingsystem {
         ubuntu: {
-            package { "python-pip":
-                ensure => installed;
-            }
             package { 'redis-server':
                 ensure => installed;
             }
