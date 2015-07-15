@@ -3,6 +3,7 @@ import click
 
 from task_status import getTaskCount
 from task_status import getTotalTaskCount
+from task_status import displayTaskProgressBar
 
 from tasks import count_words_at_url
 
@@ -58,6 +59,20 @@ sites = [
 TASK_ID_COUNT = 5  # number tasks from 0 to 4
 
 
+def displayWebSiteCounts(tasks, names):
+    def isComplete(tasks):
+        return not any(tasks)
+
+    while True:
+        for idx, task in enumerate(tasks):
+            if task and task.ready():
+                print(names[idx], task.get())
+                tasks[idx] = None
+        if isComplete(tasks):
+            break
+        time.sleep(1)
+
+
 @click.command()
 def main():
     word_counts = []
@@ -68,38 +83,9 @@ def main():
 
     print 'submitted {} tasks'.format(len(sites))
 
-    def isComplete(items):
-        return not any(items)
+    displayWebSiteCounts(word_counts, sites)
 
-    def invalidLength(items):
-        return len(list(item for item in items if item is None))
-
-    # while True:
-    #     taskCount = getTaskCount()
-    #     print taskCount
-    #     if getTotalTaskCount(taskCount) == 0:
-    #         break
-
-    oldCount = 0
-    processedCount = 0
-
-    with click.progressbar(length=len(word_counts),
-                           label='Processing') as bar:
-        while True:
-            for idx, word_count in enumerate(word_counts):
-                if word_count and word_count.ready():
-                    word_counts[idx] = None
-                    processedCount = invalidLength(word_counts)
-#                    print(processedCount,
-#                          sites[idx], word_count.get())
-                    if processedCount > oldCount:
-                        updatedCount = processedCount - oldCount
-                        bar.update(updatedCount)
-                        oldCount = processedCount
-
-            if processedCount == len(word_counts):
-                break
-            time.sleep(1)
+    # displayTaskProgressBar(word_counts)
 
 
 if __name__ == "__main__":
