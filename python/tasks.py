@@ -17,13 +17,7 @@ def add(x, y):
 
 
 @app.task
-def count_words_at_url(url, id=-1):
-    if id >= 0:
-        with redis.Redis(host='localhost', port=6379).lock('id_%s' % id):
-            logger.warning('Used id_%s' % id)
-            resp = requests.get(url)
-    else:
-        resp = requests.get(url)
-
-    logger.info('Getting info for the URL {0}'.format(url))
-    return len(resp.text.split())
+def count_text_at_url(url):
+    resp = requests.get(url)
+    print('Getting info for the URL {0}'.format(url))
+    return len(resp.text)

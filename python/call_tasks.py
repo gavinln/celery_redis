@@ -1,26 +1,77 @@
 #!/usr/bin/python
+import time
 
 from tasks import add
 
-# synchronous
-print add(4, 4)
+def temp():
+    # synchronous
+    print(add(4, 4))
 
-# Asynchronous
-task = add.delay(4, 4)
-print task
+    # Asynchronous
+    task = add.delay(4, 4)
+    print(task)
 
-from celery.result import AsyncResult
-print AsyncResult(task.task_id).get()
+    from celery.result import AsyncResult
+    print(AsyncResult(task.task_id).get())
 
-# synchronous
-print add.delay(4, 4).get()
+    # synchronous
+    print(add.delay(4, 4).get())
 
-#from tasks import count_words_at_url
-#word_counts = [
-#    count_words_at_url.delay('http://wsj.com'),
-#    count_words_at_url.delay('http://nytimes.com')
-#]
-#
-#
-#print 'wsj: ',  word_counts[0].get()
-#print 'nytimes: ', word_counts[1].get()
+
+urls = [
+    "Google.com",
+    "Youtube.com",
+    "Facebook.com",
+    "Baidu.com",
+    "Yahoo.com",
+    "Wikipedia.org",
+    "Qq.com",
+    "Sohu.com",
+    "Taobao.com",
+    "Tmall.com",
+    "Live.com",
+    "Amazon.com",
+    "Vk.com",
+    "Twitter.com",
+    #"Instagram.com",
+    "360.cn",
+    "Sina.com.cn",
+    "Linkedin.com",
+    "Jd.com",
+    "Reddit.com",
+    "Weibo.com",
+    "Hao123.com",
+    "Yandex.ru",
+    "Ebay.com",
+    "Msn.com",
+    "Wordpress.com",
+    "Bing.com",
+    "T.co",
+    "Onclkds.com",
+    "Ok.ru",
+    "Aliexpress.com",
+    "Netflix.com",
+    "Blogspot.com",
+    "Microsoft.com",
+    "Tumblr.com",
+    "Ntd.tv"
+]
+
+from tasks import count_text_at_url
+
+tasks = []
+
+for url in urls:
+    tasks.append(count_text_at_url.delay('http://' + url))
+
+start = time.time()
+
+while any(tasks):
+    for idx, task in enumerate(tasks):
+        if task and task.ready():
+            result = task.get()
+            tasks[idx] = None
+            print('url = {}, result = {}'.format(urls[idx], result))
+
+elapsed = time.time() - start
+print('elapsed = {:.2f}'.format(elapsed))

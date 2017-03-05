@@ -1,0 +1,15 @@
+---
+- name: Install redis-server
+  apt: name=redis-server state=installed
+
+- name: install redis
+  pip: name=redis state=present executable=pip3
+
+- name: install celery
+  pip: name=celery state=present executable=pip3
+
+- name: install flower
+  pip: name=flower state=present executable=pip3
+
+- name: install requests
+  pip: name=requests state=present executable=pip3
