@@ -2,7 +2,6 @@ from celery.task.control import inspect
 from celery import Celery
 
 from collections import namedtuple
-import copy
 
 import click
 import time

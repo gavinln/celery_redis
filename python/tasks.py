@@ -3,7 +3,6 @@ import requests
 from celery import Celery
 from celery.utils.log import get_task_logger
 
-import redis
 
 logger = get_task_logger(__name__)
 
