@@ -1,7 +1,10 @@
 #!/usr/bin/python
+
 import time
 
 from tasks import add
+from tasks import count_text_at_url
+from celery.result import AsyncResult
 
 
 def temp():
@@ -12,7 +15,6 @@ def temp():
     task = add.delay(4, 4)
     print(task)
 
-    from celery.result import AsyncResult
     print(AsyncResult(task.task_id).get())
 
     # synchronous
@@ -57,7 +59,6 @@ urls = [
     "Ntd.tv"
 ]
 
-from tasks import count_text_at_url
 
 tasks = []
 

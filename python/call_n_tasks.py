@@ -1,10 +1,6 @@
 import time
 import click
 
-from task_status import getTaskCount
-from task_status import getTotalTaskCount
-from task_status import displayTaskProgressBar
-
 from tasks import count_words_at_url
 
 sites = [

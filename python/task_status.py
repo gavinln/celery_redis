@@ -46,8 +46,6 @@ def displayTaskProgressBar(tasks):
         ' number of items that are None '
         return len(list(item for item in items if item is None))
 
-    tempTasks = copy.copy(tasks)
-
     oldCount = 0
     processedCount = 0
 
