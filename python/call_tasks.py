@@ -3,6 +3,7 @@ import time
 
 from tasks import add
 
+
 def temp():
     # synchronous
     print(add(4, 4))
@@ -33,7 +34,6 @@ urls = [
     "Amazon.com",
     "Vk.com",
     "Twitter.com",
-    #"Instagram.com",
     "360.cn",
     "Sina.com.cn",
     "Linkedin.com",

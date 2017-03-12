@@ -1,6 +1,7 @@
 import asyncio
 from aiohttp import ClientSession
 
+
 async def hello(url):
     with ClientSession() as session:
         async with session.get(url) as response:

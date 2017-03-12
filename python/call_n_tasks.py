@@ -81,7 +81,7 @@ def main():
         word_counts.append(
             count_words_at_url.delay('http://' + site, idx % TASK_ID_COUNT))
 
-    print 'submitted {} tasks'.format(len(sites))
+    print('submitted {} tasks'.format(len(sites)))
 
     displayWebSiteCounts(word_counts, sites)
 
