@@ -9,20 +9,20 @@ celery_redis
 About
 -----
 
-This project provides a [Ubuntu (14.04)][2] [Vagrant][3] Virtual Machine (VM)
+This project provides a [Ubuntu (16.04)][2] [Vagrant][3] Virtual Machine (VM)
 with the [Celery][4] distributed task queue that uses [Redis][5] as a broker.
 It also uses [Flower][6] which is a real-time monitor and web admin for Celery.
 
-[2]: http://releases.ubuntu.com/14.04/
+[2]: http://releases.ubuntu.com/16.04/
 [3]: http://www.vagrantup.com/
 [4]: http://www.celeryproject.org/
 [5]: http://redis.io/
 [6]: https://github.com/mher/flower
 
-There are [Puppet][7] scripts that automatically install the software when
+There are [Ansible][7] scripts that automatically install the software when
 the VM is started.
 
-[7]: http://puppetlabs.com/
+[7]: https://www.ansible.com/
 
 Running
 -------
@@ -60,7 +60,7 @@ Flower monitor.
 6. Open yet another connection as in steps 2. and 3. and start the tasks.
 
     ```bash
-    python call_tasks.py
+    python3 call_tasks.py
     ```
 
 7. Open the browser to http://192.168.33.10:5555 to view the Flower monitor

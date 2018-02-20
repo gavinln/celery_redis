@@ -55,8 +55,7 @@ urls = [
     "Netflix.com",
     "Blogspot.com",
     "Microsoft.com",
-    "Tumblr.com",
-    "Ntd.tv"
+    "Tumblr.com"
 ]
 
 
